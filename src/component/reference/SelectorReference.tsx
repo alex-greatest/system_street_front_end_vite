@@ -12,15 +12,12 @@ export const SelectorReference = (
         selectReference?: ReferenceForRecipe,
         pathPage: string}) => {
     const {data: listReferences} = useListNameReferences();
-    const [selectModelDescription, setSelectModelDescription] = useState("");
-    const {setSelectReferences, pathPage} = props;
+    const {selectReference, setSelectReferences, pathPage} = props;
+    const [selectModelDescription, setSelectModelDescription] =
+        useState(selectReference?.modelDescription ?? "");
     const [firstRender, setFirstRender] = useState(false);
 
     useEffect(() => {
-        const selectReferenceStore = StoreService.getData(pathPage);
-        const reference: ReferenceForRecipe = selectReferenceStore?.selectReferences ?? {id: -1, modelDescription: ""};
-        setSelectReferences(reference);
-        setSelectModelDescription(reference.modelDescription);
         setFirstRender(true);
         //eslint-disable-next-line
     }, []);

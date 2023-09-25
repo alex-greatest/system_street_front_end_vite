@@ -23,9 +23,9 @@ export const GraphTemplate = observer((props: {
     pathPage: string}) => {
     const {nameGraph, keyQuery, pathPage} = props;
     const {data: user} = useGetProfile();
-    const selectReferenceStore = StoreService.getData(nameGraph);
     const [updateRecipeGraph, setUpdateRecipeGraph] = useState(false);
     const [selectedReferenceRow, setSelectedReferenceRow] = useState<MRT_Row<RecipeGraph>>();
+    const selectReferenceStore = StoreService.getData(pathPage);
     const [selectReferences, setSelectReferences] =
         useState(selectReferenceStore?.selectReferences ?? {id: -1, modelDescription: ""});
 

@@ -20,13 +20,14 @@ import {observer} from "mobx-react-lite";
 import {DeleteDialog} from "../main/DeleteDialog";
 import {useDeleteRecipe, useGetTags} from "../../utils/api/tags";
 import {ReferenceTags} from "../../type/tag/ReferenceTags";
+import {StoreService} from "../../service/StoreService.ts";
 
 const helper = new DataGridRecipeService();
 export const TagsTemplate = observer((props: {mainProps: TagsHook}) => {
     const {data: user} = useGetProfile();
     const units = useCreateSelectUnits();
     const typesOpc = useCreateSelectTypeOpc();
-    const [selectedReferenceRow, setSelectedReferenceRow] = useState<MRT_Row<ReferenceTags>>()
+    const [selectedReferenceRow, setSelectedReferenceRow] = useState<MRT_Row<ReferenceTags>>();
     const [deleteTags, setDeleteTags] = useState(false);
     const {
         updateRecipe,
@@ -37,8 +38,10 @@ export const TagsTemplate = observer((props: {mainProps: TagsHook}) => {
         pathPage,
         keyQuery,
         isRecipe} = props.mainProps;
+    const selectReferenceStore = StoreService.getData(pathPage);
     const [selectReferences, setSelectReferences] =
-        useState({id: -1, modelDescription: ""});
+        useState(selectReferenceStore?.selectReferences ? {...selectReferenceStore?.selectReferences} :
+            {id: -1, modelDescription: ""});
     const memoSelectReferences = useMemo(() => selectReferences, [selectReferences]);
     const memoSetSelectReferences = useMemo(() => setSelectReferences, [setSelectReferences]);
 

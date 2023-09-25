@@ -38,7 +38,7 @@ const pageVariants = {
 const pageTransition = {
     type: "tween",
     ease: "linear",
-    duration: 1.3
+    duration: 1
 };
 
 export const MainTemplate = observer((): ReactElement|null => {
@@ -86,7 +86,7 @@ export const MainTemplate = observer((): ReactElement|null => {
                         <Typography id="back-to-top-anchor" sx={{fontSize: '27px', marginBottom: '1em', marginLeft: '1em'}}>
                             {GetPageName.getPageName(locationParameter)}
                         </Typography>
-                        <Container maxWidth="xl" sx={{height: '100%'}}>
+                        <Container maxWidth="xl" sx={{height: '100vh'}}>
                                 <Suspense fallback={<Loading />}>
                                         <OutletMemo/>
                                 </Suspense>
