@@ -19,8 +19,8 @@ export const useCreateOperationVar = (columnFilters: MRT_ColumnFiltersState, pag
     const memoryPartName = useMemo(() => partName, [partName]);
     const memorySetPartName = useMemo(() => setPartName, [setPartName]);
     const statusFiler = columnFilters?.find(item => item.id === 'status.statusName');
-    const [startTimeFilter, setStartTimeFilter] = useState<Date|null>(startTime);
-    const [endTimeFilter, setEndTimeFilter] = useState<Date|null>(endTime);
+    const [startTimeFilter, setStartTimeFilter] = useState<dayjs.Dayjs|null>(startTime);
+    const [endTimeFilter, setEndTimeFilter] = useState<dayjs.Dayjs|null>(endTime);
     const memoStartFilter = useMemo(() => startTimeFilter, [startTimeFilter]);
     const memoEndFilter = useMemo(() => endTimeFilter, [endTimeFilter]);
     const memoSetStartFilter = useMemo(() => setStartTimeFilter, [setStartTimeFilter]);

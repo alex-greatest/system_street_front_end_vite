@@ -5,5 +5,6 @@ import {PointGraphMomentTemplate} from "./PointGraphMomentTemplate";
 export interface GraphResultMomentResponse {
     pointsGraph: PointGraphMoment[],
     graphResultMomentTemplate: PointGraphMomentTemplate,
-    boolBars: PointGraphMomentBoolBar[]
+    boolBarsRight: PointGraphMomentBoolBar[],
+    boolBarsLeft: PointGraphMomentBoolBar[];
 }

@@ -82,7 +82,7 @@ const Users = observer(() => {
                 header: 'Имя',
             },
             {
-                accessorKey: 'role.roleName',
+                accessorFn: (row) => row.role?.roleName ?? "",
                 ...dataForStatusMemo
             }
         ],

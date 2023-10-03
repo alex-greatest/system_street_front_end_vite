@@ -6,10 +6,10 @@ import {observer} from "mobx-react-lite";
 import {Clear} from "@mui/icons-material";
 
 export const DataTimeComponentFilter = observer((props: {
-    startTime: Date|null,
-    endTime: Date|null,
-    setStartTime: React.Dispatch<React.SetStateAction<Date|null>>,
-    setEndTime: React.Dispatch<React.SetStateAction<Date|null>>
+    startTime: dayjs.Dayjs|null,
+    endTime: dayjs.Dayjs|null,
+    setStartTime: React.Dispatch<React.SetStateAction<dayjs.Dayjs|null>>,
+    setEndTime: React.Dispatch<React.SetStateAction<dayjs.Dayjs|null>>
 }) => {
     const {
         startTime,
@@ -17,11 +17,19 @@ export const DataTimeComponentFilter = observer((props: {
         setStartTime,
         setEndTime} = props;
 
+    const updateStartTime = (value: dayjs.Dayjs|null) => {
+        setStartTime(value);
+    }
+
+    const updateEndTime = (value: dayjs.Dayjs|null) => {
+        setEndTime(value);
+    }
+
     return (
         <Box sx={{display: 'flex', gap: "5px", marginTop: '1em'}}>
             <DateTimePicker
-                onChange={(e) => setStartTime(e?.toDate() ?? new Date())}
                 sx={{width: '215px'}}
+                onAccept={updateStartTime}
                 key={"dateTimePickerEndStart"}
                 value={startTime ? dayjs(startTime) : null}
                 defaultValue={null} ampm={false} label="Начало"
@@ -31,7 +39,7 @@ export const DataTimeComponentFilter = observer((props: {
                     },
                 }}/>
             <DateTimePicker
-                onChange={(e) => setEndTime(e?.toDate() ?? new Date())}
+                onAccept={updateEndTime}
                 sx={{width: '215px'}}
                 key={"dateTimePickerEndTime"}
                 value={endTime ? dayjs(endTime) : null}

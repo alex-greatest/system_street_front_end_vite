@@ -4,12 +4,13 @@ import {Operation} from "../../../type/result/operation/Operation";
 import {useCreateStatusColumn} from "../useCreateStatusColumn";
 import {StyleColumnResult} from "../../../component/template/column/StyleColumnResult";
 import {DataTimeComponentFilter} from "../../../component/result/DateTimeComponentFilter";
+import dayjs from "dayjs";
 
 export const useCreateColumnOperations = (statusOperationsListName: string[]|undefined,
-                                          startTime: Date|null,
-                                          endTime: Date|null,
-                                          setStartTime: React.Dispatch<React.SetStateAction<Date|null>>,
-                                          setEndTime: React.Dispatch<React.SetStateAction<Date|null>>,
+                                          startTime: dayjs.Dayjs|null,
+                                          endTime: dayjs.Dayjs|null,
+                                          setStartTime: React.Dispatch<React.SetStateAction<dayjs.Dayjs|null>>,
+                                          setEndTime: React.Dispatch<React.SetStateAction<dayjs.Dayjs|null>>,
                                           ) => {
     const dataForStatus =
         useCreateStatusColumn<Operation>(

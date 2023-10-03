@@ -39,27 +39,25 @@ export const TableMoment = observer(
                     </TableRow>
                 </TableHead>
                 <TableBody>
-
                     {
                         rightMinAssistance && rightMaxAssistance && boolBars &&
                         rightMinAssistance.length > 0 && rightMaxAssistance.length === rightMinAssistance.length &&
                             rightMaxAssistance.length === boolBars.length ?
                             rightMinAssistance.slice(0).reverse().map((min, index) => (
-                            <TableRow key={`TableRowCommonCell${min?.bar + index}`}>
-                                <TableCell align="center" key={`TableCellBar${min?.bar + index}`}> {min?.bar} </TableCell>
+                            <TableRow key={`TableRowCommonCell${min?.bar}`}>
+                                <TableCell align="center" key={`TableCellBar${min?.bar}`}> {min?.bar} </TableCell>
                                 <TableCell colSpan={1} align="center" key={`TableCellMaxAssistance${min?.bar + index}`}>
                                     {rightMaxAssistance?.at(rightMaxAssistance.length - 1 - index)?.moment?.toFixed(2) ?? 0}
                                 </TableCell>
-                                <TableCell colSpan={1} align="center" key={`TableCellNormalize${min?.bar + index}`}>
+                                <TableCell colSpan={1} align="center" key={`TableCellNormalize${min?.bar}`}>
                                     {boolBars?.at(rightMaxAssistance.length - 1 - index)?.moment?.toFixed(2)}
                                 </TableCell>
-                                <TableCell colSpan={1} align="center" key={`TableCellMinAssistance${min?.bar + index}`}>
+                                <TableCell colSpan={1} align="center" key={`TableCellMinAssistance${min?.bar}`}>
                                     {min?.moment?.toFixed(2) ?? 0}
                                 </TableCell>
                             </TableRow>
                         )) : null
                     }
-
                 </TableBody>
             </Table>
         </TableContainer>

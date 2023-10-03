@@ -40,8 +40,6 @@ export const Graphs = observer(() => {
         }
     }, [operationId, partName]);
 
-    console.log("Graphs: " + operationId);
-
     const generatePdf = async () => {
         await helpDownloadFile.downloadPdf(
             (ulrToGraphEffort, urlToGraphMoment, urlToTableMoment) =>

@@ -26,8 +26,6 @@ export const GraphMomentData = observer((props:
         isSuccess
     } = useGetGraphResultMoment(modelDescription, isNaN(+operationId) ? -1 : +operationId);
 
-    console.log("Moment: " + operationId);
-
     const dataMemo = useMemo(() => data, [data])
 
     if (isError || (isSuccess && (!data || !data.pointsGraph || data.pointsGraph.length === 0))) {

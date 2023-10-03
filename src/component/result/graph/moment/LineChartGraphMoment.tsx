@@ -27,7 +27,10 @@ export const LineChartGraphMoment = observer((props:
         idGraphMoment,
         idTableMoment,
         setLoadedSecondGraph} = props;
-    const isExistsStatusNokBool = data?.boolBars?.find((boolBar) => !boolBar.status);
+    const isExistsStatusNokBoolRight = data?.boolBarsRight?.
+    find((boolBar) => !boolBar.status);
+    const isExistsStatusNokBoolLeft = data?.boolBarsLeft?.
+    find((boolBar) => !boolBar.status);
     const [isLoadFirstLine, setIsLoadFirstLine] = useState(false);
     const [isLoadSecondLine, setIsLoadSecondLine] = useState(false);
     const [isLoadThirdLine, setIsLoadThirdLine] = useState(false);
@@ -136,14 +139,18 @@ export const LineChartGraphMoment = observer((props:
                         strokeWidth={1.5}
                         strokeOpacity={0.65}
                     />
-                    {isExistsStatusNokBool && <Line
+                    {isExistsStatusNokBoolRight && <Line
                         type="linear"
                         stroke="red"
-                        name="NOK" /> }
-                    {data?.boolBars && isExistsStatusNokBool && data?.boolBars?.map((bar, index) => (
-                        !data.boolBars.at(index)?.status &&
+                        name="NOK. Справа" /> }
+                    {isExistsStatusNokBoolLeft && <Line
+                        type="linear"
+                        stroke="red"
+                        name="NOK. Слева" /> }
+                    {data?.boolBarsRight && isExistsStatusNokBoolRight && data?.boolBarsRight?.map((bar, index) => (
+                        !data.boolBarsRight.at(index)?.status &&
                             <ReferenceLine
-                                key={`graphMomentNokLine${bar.bar}`}
+                                key={`graphMomentNokLine${bar.bar}Right`}
                                 x={bar?.moment ?? 0}
                                 stroke="red"
                                 strokeWidth={1.5}
@@ -154,9 +161,23 @@ export const LineChartGraphMoment = observer((props:
                                 </Label>
                             </ReferenceLine>
                     ))}
+                    {data?.boolBarsLeft && isExistsStatusNokBoolLeft && data?.boolBarsLeft?.map((bar, index) => (
+                        !data.boolBarsLeft.at(index)?.status &&
+                        <ReferenceLine
+                            key={`graphMomentNokLine${bar.bar}Left`}
+                            x={bar?.moment ?? 0}
+                            stroke="red"
+                            strokeWidth={1.5}
+                            strokeOpacity={1}
+                        >
+                            <Label style={{fontSize: '20px',}} angle={-90} dx={-20} position="right" >
+                                {`Момент: ${bar.moment}`}
+                            </Label>
+                        </ReferenceLine>
+                    ))}
                 </LineChart>
             </ResponsiveContainer>
-            <TableMoment data={data?.graphResultMomentTemplate} boolBars={data?.boolBars}
+            <TableMoment data={data?.graphResultMomentTemplate} boolBars={data?.boolBarsRight}
                          idTableMoment={idTableMoment}/>
         </Box>
     );
