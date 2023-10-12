@@ -22,6 +22,8 @@ export const GraphEffortData = observer((props:
         isSuccess
     } = useGetGraphResultEffort(isNaN(+operationId) ? -1 : +operationId);
 
+    console.log(data?.pointsGraphRight);
+
     const dataMemo = useMemo(() => data, [data]);
 
     if (isError || (isSuccess && (!data || !data.pointsGraphLeft || data.pointsGraphLeft.length === 0))) {
