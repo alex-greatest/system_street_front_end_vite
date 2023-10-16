@@ -59,7 +59,7 @@ export const Graphs = observer(() => {
     return (
         <>
             <ToastContainer />
-            <Stack alignItems={"center"} justifyContent={"center"} width={"100%"} height={"100%"}>
+            <Stack alignItems={"center"} justifyContent={"center"} width={"100%"} height={"100%"} padding={2}>
                 <Box id="back-to-top-anchor" sx={{display: "flex", width: "70%", alignItems: 'center'}}>
                     <OutputDetailOperation  date={date} partName={partName} modelDescription={modelDescription} />
                     <Button

@@ -17,11 +17,12 @@ export const ExportPdfGraph = (props: {
     setOperationId: React.Dispatch<React.SetStateAction<number>>,
     partName: string,
     modelDescription: string,
-    date: Date
+    date: Date,
 }) => {
     const [isRunDownLoad, setIsRunDownLoad] = useState(false);
     const [isLoadedFirstGraph, setIsLoadedFirstGraph] = useState(false);
     const [isLoadedSecondGraph, setIsLoadedSecondGraph] = useState(false);
+    const [isNotLoad, setIsNotLoad] = useState(false);
     const {
         operationId,
         setOperationId,
@@ -46,17 +47,25 @@ export const ExportPdfGraph = (props: {
     const idGraphEffort = "idGraphEffortExportPdf";
     const idGraphMoment = "idGraphMomentExportPdf";
     const idTableMoment = "idTableMomentExportPdf";
+    const waitLoad = setTimeout(() => {
+
+    }, 15000);
 
     useEffect(() => {
-        if (isErrorEffort || isErrorMoment) {
+
+    }, []);
+
+    useEffect(() => {
+        if (isErrorEffort || isErrorMoment || isNotLoad) {
             setOperationId(-1);
+            clearTimeout(waitLoad);
             setIsRunDownLoad(false);
             setIsLoadedFirstGraph(false);
             setIsLoadedSecondGraph(false);
             NotificationDisplayService.showMessageError("Не удалось загрузить даннные",
                 "errorMessageDownloadGraphEffortData");
         }
-    }, [isErrorEffort, isErrorMoment, setOperationId]);
+    }, [isErrorEffort, isErrorMoment, isNotLoad, setOperationId]);
 
     useEffect(() => {
         if (!(isErrorEffort || isErrorMoment) && !isRunDownLoad && isLoadedFirstGraph && isLoadedSecondGraph) {
@@ -77,10 +86,10 @@ export const ExportPdfGraph = (props: {
                 .catch(() => NotificationDisplayService.showMessageError("Не удалось загрузить графики",
                 "errorMessageDownloadGraphEffort"))
                 .finally(() => {
-                setOperationId(-1);
-                setIsRunDownLoad(false);
-                setIsLoadedFirstGraph(false);
-                setIsLoadedSecondGraph(false);
+                    setOperationId(-1);
+                    setIsRunDownLoad(false);
+                    setIsLoadedFirstGraph(false);
+                    setIsLoadedSecondGraph(false);
             });
         }
     }, [date, isErrorEffort, isErrorMoment, isLoadedFirstGraph, isLoadedSecondGraph, isRunDownLoad, modelDescription, partName, setOperationId]);

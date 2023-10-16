@@ -2,8 +2,8 @@ import {useFetch} from "../react-query";
 import {apiRoutes} from "../routes";
 import {UseQueryResult} from "react-query";
 import {pathToUrl} from "../router";
-import {GraphResultEffortResponse} from "../../type/result/graph-result/GraphResultEffortResponse";
-import {GraphResultMomentResponse} from "../../type/result/graph-result/GraphResultMomentResponse";
+import {GraphResultEffortResponse} from "../../type/result/graph-result/effort/GraphResultEffortResponse.ts";
+import {GraphResultMomentResponse} from "../../type/result/graph-result/moment/GraphResultMomentResponse.ts";
 import {globalConfig} from "../config";
 
 export const useGetGraphResultEffort = (operationId?: number) => {

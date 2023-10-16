@@ -5,13 +5,13 @@ import {
     Legend,
     Line,
     LineChart,
-    ReferenceLine,
+
     ResponsiveContainer,
     XAxis,
     YAxis
 } from "recharts";
 import {observer} from "mobx-react-lite";
-import {GraphResultEffortResponse} from "../../../../type/result/graph-result/GraphResultEffortResponse";
+import {GraphResultEffortResponse} from "../../../../type/result/graph-result/effort/GraphResultEffortResponse.ts";
 
 export const LineChartGraphEffort = observer((props:
                                          {
@@ -46,29 +46,36 @@ export const LineChartGraphEffort = observer((props:
                 <CartesianGrid horizontal={true} vertical={true} />
                 <XAxis
                     type="number"
-                    xAxisId={"right_effort_x"}
-                    dataKey="x">
+                    dataKey="x"
+                    tickCount={25} interval={0}>
                     <Label style={{fill: 'blue', fontSize: '25px',}} offset={-100} dy={25} position="center" >
                         Ход рейки, мм
                     </Label>
                 </XAxis>
                 <YAxis type="number"
-                       yAxisId={"right_effort_y"}
+                       tickCount={30}
                        dataKey={"y"}>
-                    <Label style={{fill: 'blue', fontSize: '25px',}} angle={-90} dx={-20} position="center" >
+                    <Label style={{fill: 'blue', fontSize: '25px',}} angle={-90} dx={-30} position="center" >
                         Усилие преремещения рейки, Н
                     </Label>
                 </YAxis>
                 <Legend verticalAlign="top"/>
                 <Line
+                    onAnimationEnd={() => {setIsLoadFirstLine(true)}}
+                    name="Усилие слева"
+                    data={data?.pointsGraphLeft}
+                    type="monotone"
+                    dataKey="y"
+                    stroke="#0000FF"
+                    dot={false}
+                />
+                <Line
                     onAnimationEnd={() => {setIsLoadSecondLine(true)}}
-                    xAxisId={"right_effort_x"}
-                    yAxisId={"right_effort_y"}
                     name="Усилие справа"
                     data={data?.pointsGraphRight}
                     type="monotone"
                     dataKey="y"
-                    stroke="#0000FF"
+                    stroke="#FFA500"
                     dot={false}
                 />
             </LineChart>

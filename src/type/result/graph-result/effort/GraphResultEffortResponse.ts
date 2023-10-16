@@ -1,4 +1,4 @@
-import {PointGraphEffort} from "./PointGraphEffort";
+import {PointGraphEffort} from "./PointGraphEffort.ts";
 
 export interface GraphResultEffortResponse {
     pointsGraphRight: PointGraphEffort[],

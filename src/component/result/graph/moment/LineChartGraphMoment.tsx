@@ -12,8 +12,8 @@ import {
 import {observer} from "mobx-react-lite";
 import {CustomDot} from "../CustomDot";
 import {Box} from "@mui/material";
-import {TableMoment} from "../TableMoment";
-import {GraphResultMomentResponse} from "../../../../type/result/graph-result/GraphResultMomentResponse";
+import {TableMoment} from "./TableMoment.tsx";
+import {GraphResultMomentResponse} from "../../../../type/result/graph-result/moment/GraphResultMomentResponse.ts";
 
 export const LineChartGraphMoment = observer((props:
                                          {
@@ -27,10 +27,6 @@ export const LineChartGraphMoment = observer((props:
         idGraphMoment,
         idTableMoment,
         setLoadedSecondGraph} = props;
-    const isExistsStatusNokBoolRight = data?.boolBarsRight?.
-    find((boolBar) => !boolBar.status);
-    const isExistsStatusNokBoolLeft = data?.boolBarsLeft?.
-    find((boolBar) => !boolBar.status);
     const [isLoadFirstLine, setIsLoadFirstLine] = useState(false);
     const [isLoadSecondLine, setIsLoadSecondLine] = useState(false);
     const [isLoadThirdLine, setIsLoadThirdLine] = useState(false);
@@ -64,7 +60,7 @@ export const LineChartGraphMoment = observer((props:
                     }}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <Legend verticalAlign="top"/>
-                    <XAxis allowDecimals={true} tickCount={20} interval={0} dataKey="moment" type="number" allowDuplicatedCategory={false}>
+                    <XAxis allowDecimals={true} tickCount={15} interval={0} dataKey="moment" type="number" allowDuplicatedCategory={false}>
                         <Label style={{fill: 'blue', fontSize: '25px',}} offset={-100} dy={25} position="center" >
                             Момент
                         </Label>
@@ -88,14 +84,15 @@ export const LineChartGraphMoment = observer((props:
                         onAnimationEnd={() => {setIsLoadFirstLine(true)}}
                         type="linear"
                         dataKey="bar"
-                        stroke="#FFA500"
+                        stroke="green"
                         activeDot={{ r: 8 }}
+                        legendType={'none'}
                         dot={false}
                         name="Разница давлений">
                         <LabelList content={<CustomDot />} />
                     </Line>
                     <Line
-                        data={data?.graphResultMomentTemplate?.rightMinAssistance}
+                        data={data?.pointsGraphDeviation?.rightMinAssistance}
                         onAnimationEnd={() => {setIsLoadSecondLine(true)}}
                         type="linear"
                         dataKey="bar"
@@ -106,29 +103,31 @@ export const LineChartGraphMoment = observer((props:
                         strokeDasharray={"3, 3"}
                         name="Минимум" />
                     <Line
-                        data={data?.graphResultMomentTemplate?.rightMaxAssistance}
+                        data={data?.pointsGraphDeviation?.rightMaxAssistance}
                         onAnimationEnd={() => {setIsLoadThirdLine(true)}}
                         dataKey="bar"
-                        stroke="#8b00ff"
+                        stroke="green"
                         activeDot={{ r: 8 }}
+                        legendType={'none'}
                         strokeDasharray={"3, 3"}
                         name="Максимум" />
                     <Line
-                        data={data?.graphResultMomentTemplate?.leftMinAssistance}
+                        data={data?.pointsGraphDeviation?.leftMinAssistance}
                         onAnimationEnd={() => {setIsLoadFourthLine(true)}}
                         type="linear"
                         dataKey="bar"
                         stroke="green"
                         activeDot={{ r: 8 }}
+                        legendType={'none'}
                         dot={true}
                         strokeDasharray={"3, 3"}
                         name="Минимум" />
                     <Line
-                        data={data?.graphResultMomentTemplate?.leftMaxAssistance}
+                        data={data?.pointsGraphDeviation?.leftMaxAssistance}
                         onAnimationEnd={() => {setIsLoadFifthLine(true)}}
                         type="linear"
                         dataKey="bar"
-                        stroke="#8b00ff"
+                        stroke="green"
                         legendType={'none'}
                         activeDot={{ r: 8 }}
                         strokeDasharray={"3, 3"}
@@ -139,46 +138,15 @@ export const LineChartGraphMoment = observer((props:
                         strokeWidth={1.5}
                         strokeOpacity={0.65}
                     />
-                    {isExistsStatusNokBoolRight && <Line
-                        type="linear"
-                        stroke="red"
-                        name="NOK. Справа" /> }
-                    {isExistsStatusNokBoolLeft && <Line
-                        type="linear"
-                        stroke="red"
-                        name="NOK. Слева" /> }
-                    {data?.boolBarsRight && isExistsStatusNokBoolRight && data?.boolBarsRight?.map((bar, index) => (
-                        !data.boolBarsRight.at(index)?.status &&
-                            <ReferenceLine
-                                key={`graphMomentNokLine${bar.bar}Right`}
-                                x={bar?.moment ?? 0}
-                                stroke="red"
-                                strokeWidth={1.5}
-                                strokeOpacity={1}
-                            >
-                                <Label style={{fontSize: '20px',}} angle={-90} dx={-20} position="right" >
-                                    {`Момент: ${bar.moment}`}
-                                </Label>
-                            </ReferenceLine>
-                    ))}
-                    {data?.boolBarsLeft && isExistsStatusNokBoolLeft && data?.boolBarsLeft?.map((bar, index) => (
-                        !data.boolBarsLeft.at(index)?.status &&
-                        <ReferenceLine
-                            key={`graphMomentNokLine${bar.bar}Left`}
-                            x={bar?.moment ?? 0}
-                            stroke="red"
-                            strokeWidth={1.5}
-                            strokeOpacity={1}
-                        >
-                            <Label style={{fontSize: '20px',}} angle={-90} dx={-20} position="right" >
-                                {`Момент: ${bar.moment}`}
-                            </Label>
-                        </ReferenceLine>
-                    ))}
                 </LineChart>
             </ResponsiveContainer>
-            <TableMoment data={data?.graphResultMomentTemplate} boolBars={data?.boolBarsRight}
-                         idTableMoment={idTableMoment}/>
+            <TableMoment
+                momentTemplate={data?.momentTemplate}
+                barTemplate={data?.barTemplate}
+                boolBarsRight={data?.boolBarsRight}
+                boolBarsLeft={data?.boolBarsLeft}
+                momentTable={data?.momentTable}
+                idTableMoment={idTableMoment} />
         </Box>
     );
 });

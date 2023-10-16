@@ -14,17 +14,18 @@ const styles = StyleSheet.create({
     section: {
         fontFamily: "Roboto",
         fontSize: "25px",
-        margin: "30px 0"
+        margin: "30px 0",
+        padding: "10px 15px"
     },
     title: {
+        marginTop: '20px',
         marginBottom: "20px",
         fontSize: "30px",
         fontFamily: "Roboto",
         textAlign: "center"
     },
     image: {
-        width: "300px",
-        height: "600px"
+        padding: "10px 15px"
     }
 });
 
@@ -61,7 +62,7 @@ export const GraphPdf = observer((props: {
                 </View>
                 {idHtmlGraphEffort &&
                     <View>
-                        <Image src={idHtmlGraphEffort}/>
+                        <Image style={styles.image}  src={idHtmlGraphEffort}/>
                     </View>
                 }
             </Page>
@@ -71,12 +72,12 @@ export const GraphPdf = observer((props: {
                 </View>
                 {idHtmlGraphMoment &&
                     <View>
-                        <Image src={idHtmlGraphMoment}/>
+                        <Image style={styles.image}  src={idHtmlGraphMoment}/>
                     </View>
                 }
                 {idHtmlTableMoment &&
                     <View>
-                        <Image src={idHtmlTableMoment}/>
+                        <Image style={styles.image} src={idHtmlTableMoment}/>
                     </View>
                 }
             </Page>

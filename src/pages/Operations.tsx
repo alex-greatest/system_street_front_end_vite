@@ -197,11 +197,11 @@ export const Operations = observer(() => {
             />
             {operationIdPdf !== -1 &&
                 <ExportPdfGraph
-                operationId={operationIdPdf}
-                setOperationId={setOperationIdPdf}
-                date={actualOperation.changeTime ?? new Date()}
-                modelDescription={partName ? reference?.modelDescription ?? "" : ""}
-                partName={partName}/>
+                    operationId={operationIdPdf}
+                    setOperationId={setOperationIdPdf}
+                    date={actualOperation.changeTime ?? new Date()}
+                    modelDescription={partName ? reference?.modelDescription ?? "" : ""}
+                    partName={partName}/>
             }
         </Box>
     );

@@ -1,6 +1,6 @@
-import {PointGraphMoment} from "./PointGraphMoment";
+import {PointGraphMoment} from "./PointGraphMoment.ts";
 
-export interface PointGraphMomentTemplate {
+export interface PointGraphDeviation {
     leftMinAssistance: PointGraphMoment[];
     leftMaxAssistance: PointGraphMoment[];
     rightMinAssistance: PointGraphMoment[];
