@@ -5,7 +5,7 @@ import {
     Legend,
     Line,
     LineChart,
-
+    ReferenceLine,
     ResponsiveContainer,
     XAxis,
     YAxis
@@ -78,57 +78,11 @@ export const LineChartGraphEffort = observer((props:
                     stroke="#FFA500"
                     dot={false}
                 />
-            </LineChart>
-            {/*<LineChart
-                key={"lineChartGraphEffort"}
-                width={500}
-                height={300}
-                margin={{
-                    top: 5,
-                    right: 25,
-                    left: 20,
-                    bottom: 25
-                }}>
-                <CartesianGrid horizontal={true} vertical={true} />
-                <XAxis
-                    type="number"
-                    dataKey="x">
-                    <Label style={{fill: 'blue', fontSize: '25px',}} offset={-100} dy={25} position="center" >
-                        Ход рейки, мм
-                    </Label>
-                </XAxis>
-                <YAxis type="number"
-                       tickCount={8} interval={0}
-                       dataKey={"y"}>
-                    <Label style={{fill: 'blue', fontSize: '25px',}} angle={-90} dx={-20} position="center" >
-                        Усилие преремещения рейки, Н
-                    </Label>
-                </YAxis>
-                <Legend verticalAlign="top"/>
-                <Line
-                    onAnimationEnd={() => {setIsLoadFirstLine(true)}}
-                    type="monotone"
-                    data={data?.pointsGraphRight}
-                    dataKey="y"
-                    stroke="#FFA500"
-                    activeDot={{ r: 8 }}
-                    dot={false}
-                    name="Усилие слева"
-                />
-                <Line
-                    onAnimationEnd={() => {setIsLoadSecondLine(true)}}
-                    name="Усилие справа"
-                    data={data?.pointsGraphLeft}
-                    type="monotone"
-                    dataKey="y"
-                    stroke="#0000FF"
-                    dot={false}
-                />
                 <Line name="Среднее значение справа" dataKey="y" stroke="green" />
                 <Line name="Среднее значение слева" strokeDasharray="1 3" dataKey="y" stroke="red" />
-                <ReferenceLine strokeDasharray="15 3" name={"Среднее значение справа"} y={data?.cwAvg} stroke="green" />
+                <ReferenceLine strokeDasharray="15 3" name={"Среднее значение справа"} y={-(data?.cwAvg ?? 0)} stroke="green" />
                 <ReferenceLine strokeDasharray="10 7" name={"Среднее значение слева"} y={data?.cwwAvg} stroke="red" />
-            </LineChart>*/}
+            </LineChart>
         </ResponsiveContainer>
     );
 });

@@ -38,7 +38,7 @@ export const TableMoment = observer(
 
     return (
         <TableContainer id = {idTableMoment} sx={{width: '50%', height: "700px", border: borderSettings}} component={Paper}>
-            <Table sx={{ width: '100%' }} aria-label="spanning table">
+            <Table sx={{ width: '100%', borderCollapse: 'separate', borderSpacing: '1px' }} aria-label="spanning table">
                 <TableHead>
                     <TableRow sx={{borderTop: borderSettings}}>
                         <TableCell rowSpan={2} align="center">

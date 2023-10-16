@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import {LineChartGraphEffort} from "./effort/LineChartGraphEffort";
 import {LineChartGraphMoment} from "./moment/LineChartGraphMoment";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import {ManagerTimer} from "../../../service/ManagerTimer.ts";
 
 dayjs.extend(customParseFormat)
 
@@ -47,18 +48,21 @@ export const ExportPdfGraph = (props: {
     const idGraphEffort = "idGraphEffortExportPdf";
     const idGraphMoment = "idGraphMomentExportPdf";
     const idTableMoment = "idTableMomentExportPdf";
-    const waitLoad = setTimeout(() => {
-
-    }, 15000);
 
     useEffect(() => {
-
+        ManagerTimer.startTimer(() => {
+            if (!(isLoadedFirstGraph && isLoadedSecondGraph) && operationId !== -1) {
+                setIsNotLoad(true);
+            }
+        }, 15000);
+        //eslint-disable-next-line
     }, []);
 
     useEffect(() => {
         if (isErrorEffort || isErrorMoment || isNotLoad) {
             setOperationId(-1);
-            clearTimeout(waitLoad);
+            ManagerTimer.resetTimer();
+            setIsNotLoad(false);
             setIsRunDownLoad(false);
             setIsLoadedFirstGraph(false);
             setIsLoadedSecondGraph(false);
@@ -69,6 +73,7 @@ export const ExportPdfGraph = (props: {
 
     useEffect(() => {
         if (!(isErrorEffort || isErrorMoment) && !isRunDownLoad && isLoadedFirstGraph && isLoadedSecondGraph) {
+            ManagerTimer.resetTimer();
             setIsRunDownLoad(true);
             helpDownloadFile.downloadPdf(
                 (ulrToGraphEffort, urlToGraphMoment, urlToTableMoment) =>
@@ -87,6 +92,7 @@ export const ExportPdfGraph = (props: {
                 "errorMessageDownloadGraphEffort"))
                 .finally(() => {
                     setOperationId(-1);
+                    setIsNotLoad(false);
                     setIsRunDownLoad(false);
                     setIsLoadedFirstGraph(false);
                     setIsLoadedSecondGraph(false);

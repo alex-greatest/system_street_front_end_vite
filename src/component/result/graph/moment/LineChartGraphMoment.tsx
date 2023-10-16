@@ -84,9 +84,8 @@ export const LineChartGraphMoment = observer((props:
                         onAnimationEnd={() => {setIsLoadFirstLine(true)}}
                         type="linear"
                         dataKey="bar"
-                        stroke="green"
+                        stroke="red"
                         activeDot={{ r: 8 }}
-                        legendType={'none'}
                         dot={false}
                         name="Разница давлений">
                         <LabelList content={<CustomDot />} />
@@ -97,11 +96,10 @@ export const LineChartGraphMoment = observer((props:
                         type="linear"
                         dataKey="bar"
                         stroke="green"
-                        legendType={'none'}
                         activeDot={{ r: 8 }}
                         dot={true}
                         strokeDasharray={"3, 3"}
-                        name="Минимум" />
+                        name="Шаблон" />
                     <Line
                         data={data?.pointsGraphDeviation?.rightMaxAssistance}
                         onAnimationEnd={() => {setIsLoadThirdLine(true)}}

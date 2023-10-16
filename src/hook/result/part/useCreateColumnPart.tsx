@@ -26,7 +26,7 @@ export const useCreateColumnPart = (
             },
             {
                 accessorKey: 'changeTime',
-                header: 'Дата добавления',
+                header: 'Дата измнения',
                 enableColumnFilter: false
             },
             {
