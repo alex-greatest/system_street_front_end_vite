@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {
     CartesianGrid,
-    Label, LabelList,
+    Label,
     Legend,
     Line,
     LineChart, ReferenceLine,
@@ -10,7 +10,6 @@ import {
     YAxis,
 } from "recharts";
 import {observer} from "mobx-react-lite";
-import {CustomDot} from "../CustomDot";
 import {Box} from "@mui/material";
 import {TableMoment} from "./TableMoment.tsx";
 import {GraphResultMomentResponse} from "../../../../type/result/graph-result/moment/GraphResultMomentResponse.ts";
@@ -88,7 +87,6 @@ export const LineChartGraphMoment = observer((props:
                         activeDot={{ r: 8 }}
                         dot={false}
                         name="Разница давлений">
-                        <LabelList content={<CustomDot />} />
                     </Line>
                     <Line
                         data={data?.pointsGraphDeviation?.rightMinAssistance}

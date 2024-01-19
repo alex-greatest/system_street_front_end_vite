@@ -70,7 +70,7 @@ const Login = observer((): ReactElement|null => {
                                         <TextField
                                             sx={{ mb: "20px" }}
                                             onChange={(e) =>
-                                                onChange(e.target.value.replace(/[^A-Za-z0-9]/ig,''))}
+                                                onChange(e.target.value.replace(/[^A-Za-z0-9 ]/ig,''))}
                                             label='Имя'
                                             id="userNameFieldLoginId"
                                             key="userNameFieldLoginKey"
