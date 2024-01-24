@@ -52,7 +52,7 @@ export const GraphPdf = observer((props: {
                     <Text>Код механизма: {partName}</Text>
                 </View>
                 <View style={styles.title}>
-                    <Text>Тип механизма: {modeDescription}</Text>
+                    <Text>Модель: {modeDescription}</Text>
                 </View>
                 <View style={styles.title}>
                     <Text>Дата: {date.toString()}</Text>

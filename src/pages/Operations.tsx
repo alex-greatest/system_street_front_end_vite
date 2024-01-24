@@ -2,7 +2,7 @@ import {useEffect, useMemo, useState} from 'react';
 import {MaterialReactTable} from 'material-react-table';
 import {
     Box,
-    IconButton, MenuItem,
+    IconButton,
     Tooltip,
 } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -23,6 +23,9 @@ import {Operation} from "../type/result/operation/Operation";
 import {ToastContainer} from "react-toastify";
 import {useReferenceByPartName} from "../utils/api/reference";
 import {useTemplateDataGrid} from "../hook/useTemplateDataGrid";
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const helpDownloadFileCsv = new HelpDownloadFileCsv();
 
@@ -136,51 +139,69 @@ export const Operations = observer(() => {
                 onColumnFiltersChange={setColumnFilters}
                 onSortingChange={setSorting}
                 onPaginationChange={setPagination}
-                renderRowActionMenuItems={({ row }) => [
-                    <MenuItem key="GraphResultRealEffort" onClick={() => {
-                        const operationId = row?.original?.id;
-                        StoreService.addDataLocal(`/graph_effort/${operationId}`, {
-                            partName: partName,
-                            date: row?.original?.changeTime ?? new Date(),
-                            modelDescription: reference?.modelDescription
-                        });
-                        window.open(`/graph_effort?operationId=${operationId}`, '_blank',
-                            'noopener, noreferrer');
-                    }} >
-                        Графики
-                    </MenuItem>,
-                    <MenuItem key="GraphResultRealEffortExportPdf"
-                              disabled={disablePdfExportEffort || disablePointsGraphDownload}
-                              onClick={() => {
-                                  setOperationIdPdf(row?.original?.id ?? -1)
-                                  setActualOperation(row?.original ?? operationDefault);
-                              }}>
-                        Экспортировать графики
-                    </MenuItem>,
-                    <MenuItem
-                        disabled={disablePdfExportEffort || disablePointsGraphDownload}
-                        key={`ResultOperationsGraphPointExportCsv${row.original.id}`}
-                        color="secondary"
-                        onClick={() => {
-                            onSubmitDownloadPointsGraph(row?.original?.id ?? 0).then()
-                        }}>
-                            Экспорт точек
-                    </MenuItem>,
-                    <MenuItem key="operationsResultsOnDataGrid"
-                              disabled={disablePdfExportEffort || disablePointsGraphDownload}
-                              onClick={() => {
-                                const operationId = row?.original?.id;
-                                StoreService.addDataLocal(`/operation_results/${operationId}`, {
-                                partName: partName,
-                                date: row?.original?.changeTime ?? new Date(),
-                                modelDescription: reference?.modelDescription
-                            });
-                            window.open(`/operations_results?operationId=${operationId}`, '_blank',
-                            'noopener, noreferrer');
-                    }}>
-                        Результаты цикла
-                    </MenuItem>,
-                ]}
+                renderRowActions={({ row }) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px', width: '100%' }}>
+                        <Tooltip arrow placement="right" title="Просмотр результатов цикла">
+                            <IconButton
+                                key={`ShowResultsOperations${row.original.id}`}
+                                disabled={disablePdfExportEffort || disablePointsGraphDownload}
+                                color="secondary"
+                                onClick={() => {
+                                    const operationId = row?.original?.id;
+                                    StoreService.addDataLocal(`/operation_results/${operationId}`, {
+                                        partName: partName,
+                                        date: row?.original?.changeTime ?? new Date(),
+                                        modelDescription: reference?.modelDescription
+                                    });
+                                    window.open(`/operations_results?operationId=${operationId}`, '_blank',
+                                        'noopener, noreferrer');
+                                }}>
+                                <TableRowsIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip arrow placement="right" title="Просмотр графиков">
+                            <IconButton
+                                key={`GraphResultRealAll${row.original.id}`}
+                                disabled={disablePdfExportEffort || disablePointsGraphDownload}
+                                color="secondary"
+                                onClick={() => {
+                                    const operationId = row?.original?.id;
+                                    StoreService.addDataLocal(`/graph_effort/${operationId}`, {
+                                        partName: partName,
+                                        date: row?.original?.changeTime ?? new Date(),
+                                        modelDescription: reference?.modelDescription
+                                    });
+                                    window.open(`/graph_effort?operationId=${operationId}`, '_blank',
+                                        'noopener, noreferrer');
+                                }}>
+                                <SignalCellularAltIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip arrow placement="right" title="Экспорт графиков">
+                            <IconButton
+                                key={`ExportGraphsAll${row.original.id}`}
+                                disabled={disablePdfExportEffort || disablePointsGraphDownload}
+                                color="secondary"
+                                onClick={() => {
+                                    setOperationIdPdf(row?.original?.id ?? -1)
+                                    setActualOperation(row?.original ?? operationDefault);
+                                }}>
+                                <DownloadIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip arrow placement="right" title="Экспорт точек графиков">
+                            <IconButton
+                                key={`ExportGraphPoints${row.original.id}`}
+                                disabled={disablePdfExportEffort || disablePointsGraphDownload}
+                                color="primary"
+                                onClick={() => {
+                                    onSubmitDownloadPointsGraph(row?.original?.id ?? 0).then()
+                                }}>
+                                <DownloadIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </Box>
+                )}
                 muiLinearProgressProps={() => ({
                     color: 'secondary',
                     variant: 'indeterminate', //if you want to show exact progress value
