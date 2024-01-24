@@ -80,6 +80,7 @@ export const TagsTemplate = observer((props: {mainProps: TagsHook}) => {
                 data={data && selectReferences?.id !== -1 ? data : []}
                 initialState={{
                     showColumnFilters: true,
+                    density: 'compact',
                     columnVisibility: {changeTime: false, 'user.name': false, unit: false}}}
                 enableRowActions
                 enablePagination={false}

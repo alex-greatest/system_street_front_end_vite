@@ -61,13 +61,13 @@ export const Parts = observer(() => {
     }, [columnFilters, modelDescriptionList, pagination, sorting, statusOperationsListName]);
 
     const onSubmitDownloadCsvOperation = async (partId: number) => {
-        await helpDownloadFileCsv.DownloadFileCsv(partId,
+        await helpDownloadFileCsv.downloadFileCsvOperationFromPart(partId,
             setDisableDownLoadCsvOperation,
             "toastDownLoadCsvOperations");
     }
 
     const onSubmitDownloadCsvParts = async () => {
-        await helpDownloadFileCsv.DownloadFileCsvParts(paramRequest,
+        await helpDownloadFileCsv.downloadFileCsvParts(paramRequest,
             setdisableDownLoadCsvPart,
             "toastDownLoadCsvPartsList");
     }
@@ -84,7 +84,7 @@ export const Parts = observer(() => {
                 key={"operationsMaterialReactTable"}
                 columns={useCreateColumnPart(statusOperationsListName, modelDescriptionList)}
                 data={data ?? []}
-                initialState={{ showColumnFilters: true }}
+                initialState={{ showColumnFilters: true, density: 'compact' }}
                 manualPagination
                 manualFiltering
                 enableRowActions

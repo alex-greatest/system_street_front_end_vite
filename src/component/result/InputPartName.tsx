@@ -27,7 +27,7 @@ export const InputPartName = observer((props: { partName: string, setPartName: s
                 }
                 {modelDescription &&
                     <Typography sx={{margin: 'auto 0 1em 1em'}} variant="h5" component="div">
-                        Тип механизма: {modelDescription}
+                        Модель: {modelDescription}
                     </Typography>
                 }
             </Stack>

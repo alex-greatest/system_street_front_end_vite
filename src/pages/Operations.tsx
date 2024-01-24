@@ -48,6 +48,7 @@ export const Operations = observer(() => {
     const [disableCsvOperationFilter, setDisableCsvOperationFilter] =
         useState(false);
     const [disablePdfExportEffort, setdisablePdfExportEffort] = useState(false);
+    const [disablePointsGraphDownload, setDisablePointsGraphDownload] = useState(false);
     const [operationIdPdf, setOperationIdPdf] = useState(-1);
     const [actualOperation, setActualOperation] =
         useState(operationDefault);
@@ -86,12 +87,23 @@ export const Operations = observer(() => {
     }, [operationDefault, operationIdPdf]);
 
     const onSubmitDownloadCsvOperationFilter = async () => {
-        await helpDownloadFileCsv.DownloadFileCsvOperation(partName,
+        await helpDownloadFileCsv.downloadFileCsvOperation(partName,
             setDisableCsvOperationFilter,
             "toastDownLoadCsvOperationsWithFilter",
             paramRequest.status,
             paramRequest.startTime,
             paramRequest.endTime);
+    }
+
+    const onSubmitDownloadPointsGraph = async (operationId: number) => {
+        await helpDownloadFileCsv.downloadFileCsvGraphPoint(
+            {
+                operationId: operationId,
+                referenceName: reference?.modelDescription ?? ""
+            },
+            setDisablePointsGraphDownload,
+            setdisablePdfExportEffort,
+            "toastDownLoadCsvPointsGraph");
     }
 
     return (
@@ -104,7 +116,7 @@ export const Operations = observer(() => {
                 key={"operationsMaterialReactTable"}
                 columns={useCreateColumnOperations(statusOperationsListName, startFilter, endFilter, setStartFilter, setEndFilter)}
                 data={data && partName ? data : []}
-                initialState={{ showColumnFilters: true }}
+                initialState={{ showColumnFilters: true, density: 'compact' }}
                 manualPagination
                 manualFiltering
                 enableRowActions
@@ -138,21 +150,32 @@ export const Operations = observer(() => {
                         Графики
                     </MenuItem>,
                     <MenuItem key="GraphResultRealEffortExportPdf"
-                              disabled={disablePdfExportEffort}
+                              disabled={disablePdfExportEffort || disablePointsGraphDownload}
                               onClick={() => {
                                   setOperationIdPdf(row?.original?.id ?? -1)
                                   setActualOperation(row?.original ?? operationDefault);
                               }}>
                         Экспортировать графики
                     </MenuItem>,
-                    <MenuItem key="operationsResultsOnDataGrid" onClick={() => {
-                        const operationId = row?.original?.id;
-                        StoreService.addDataLocal(`/operation_results/${operationId}`, {
-                            partName: partName,
-                            date: row?.original?.changeTime ?? new Date(),
-                            modelDescription: reference?.modelDescription
-                        });
-                        window.open(`/operations_results?operationId=${operationId}`, '_blank',
+                    <MenuItem
+                        disabled={disablePdfExportEffort || disablePointsGraphDownload}
+                        key={`ResultOperationsGraphPointExportCsv${row.original.id}`}
+                        color="secondary"
+                        onClick={() => {
+                            onSubmitDownloadPointsGraph(row?.original?.id ?? 0).then()
+                        }}>
+                            Экспорт точек
+                    </MenuItem>,
+                    <MenuItem key="operationsResultsOnDataGrid"
+                              disabled={disablePdfExportEffort || disablePointsGraphDownload}
+                              onClick={() => {
+                                const operationId = row?.original?.id;
+                                StoreService.addDataLocal(`/operation_results/${operationId}`, {
+                                partName: partName,
+                                date: row?.original?.changeTime ?? new Date(),
+                                modelDescription: reference?.modelDescription
+                            });
+                            window.open(`/operations_results?operationId=${operationId}`, '_blank',
                             'noopener, noreferrer');
                     }}>
                         Результаты цикла

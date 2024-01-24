@@ -2,7 +2,7 @@ import {apiRoutes} from "../routes";
 import {axiosApi} from "../axios-api";
 import {globalConfig} from "../config";
 
-export const downloadCsvFile = async (partId: number, status?: string) => {
+export const downloadCsvFileParts = async (partId: number, status?: string) => {
     return requestDownloadCsvFile({partId: partId, status: status ?? ""})
 }
 
@@ -24,8 +24,14 @@ const requestDownloadCsvFile = async (params: object) => {
     });
 }
 
-export const DownloadCsvPartsFile = async (params: object) => {
+export const downloadCsvPartsFile = async (params: object) => {
     return axiosApi.get(`${globalConfig.config.apiUrl}${apiRoutes.downloadPartsCsv}`, {params: {...params},
+        responseType: 'blob'
+    });
+}
+
+export const downloadCsvGraphPoint = async (params: object) => {
+    return axiosApi.get(`${globalConfig.config.apiUrl}${apiRoutes.downloadCsvGraphPoint}`, {params: {...params},
         responseType: 'blob'
     });
 }

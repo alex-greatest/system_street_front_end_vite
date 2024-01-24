@@ -1,9 +1,10 @@
 import {AxiosError, AxiosResponse} from "axios";
 import {NotificationDisplayService} from "../NotificationDisplayService";
 import {
-    downloadCsvFile,
+    downloadCsvFileParts,
     downloadCsvFileFilterOperation,
-    DownloadCsvPartsFile
+    downloadCsvPartsFile,
+    downloadCsvGraphPoint
 } from "../../utils/api/csv";
 import React from "react";
 import {HelpDownloadFile} from "./HelpDownloadFile";
@@ -12,11 +13,11 @@ import {PartRequest} from "../../type/result/part/PartRequest";
 type setBoolean = React.Dispatch<React.SetStateAction<boolean>>
 
 export class HelpDownloadFileCsv extends HelpDownloadFile {
-    public async DownloadFileCsv(partId: number, setDisable: setBoolean, idToast: string, status?: string) {
-        return this.requestDownloadFileCsv(setDisable, idToast, () => downloadCsvFile(partId, status));
+    public async downloadFileCsvOperationFromPart(partId: number, setDisable: setBoolean, idToast: string, status?: string) {
+        return this.requestDownloadFileCsv(setDisable, idToast, () => downloadCsvFileParts(partId, status));
     }
 
-    public async DownloadFileCsvOperation(partName: string,
+    public async downloadFileCsvOperation(partName: string,
                                           setDisable: setBoolean,
                                           idToast: string,
                                           status?: string,
@@ -30,8 +31,27 @@ export class HelpDownloadFileCsv extends HelpDownloadFile {
                 endTime));
     }
 
-    public async DownloadFileCsvParts(paramRequest: PartRequest, setDisable: setBoolean, idToast: string) {
-        return this.requestDownloadFileCsv(setDisable, idToast, () => DownloadCsvPartsFile(paramRequest));
+    public async downloadFileCsvParts(paramRequest: PartRequest, setDisable: setBoolean, idToast: string) {
+        return this.requestDownloadFileCsv(setDisable, idToast, () => downloadCsvPartsFile(paramRequest));
+    }
+
+    public async downloadFileCsvGraphPoint(paramRequest: {operationId: number, referenceName: string},
+                                           setDisablePointsGraphDownload: setBoolean,
+                                           setdisablePdfExportEffort: setBoolean,
+                                           idToast: string) {
+        try {
+            NotificationDisplayService.showLoading(idToast);
+            setDisablePointsGraphDownload(true);
+            setdisablePdfExportEffort(true);
+            const response = await downloadCsvGraphPoint(paramRequest);
+            this.downloadFileCsv(response);
+        } catch (e) {
+            NotificationDisplayService.showMessageQuery(e as AxiosError);
+        } finally {
+            NotificationDisplayService.hideLoading(idToast);
+            setDisablePointsGraphDownload(false);
+            setdisablePdfExportEffort(false);
+        }
     }
 
     private async requestDownloadFileCsv(setDisable: setBoolean,

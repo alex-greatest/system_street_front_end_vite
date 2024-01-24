@@ -74,7 +74,7 @@ export const GraphTemplate = observer((props: {
                 data={data && selectReferences?.id !== -1 ? data : []}
                 enableRowNumbers
                 rowNumberMode="original"
-                initialState={{showColumnFilters: true}}
+                initialState={{showColumnFilters: true, density: 'compact'}}
                 enableRowActions
                 enablePagination={false}
                 enableSorting={false}

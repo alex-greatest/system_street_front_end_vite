@@ -49,6 +49,7 @@ export const OperationsResults = observer(() => {
                             width: '80%'
                         },
                     }}
+                    initialState={{ density: 'compact' }}
                     columns={useCreateColumnOperationResults()}
                     data={data ?? []}
                     enablePagination={false}

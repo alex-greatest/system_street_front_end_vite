@@ -20,7 +20,7 @@ export const OutputDetailOperation = observer((
             }
             {modelDescription &&
                 <Typography sx={{margin: 'auto 0 1em 1em'}} variant="h4" component="div">
-                    Тип механизма: {modelDescription}
+                    Модель: {modelDescription}
                 </Typography>
             }
             {date &&

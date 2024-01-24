@@ -96,7 +96,7 @@ const References = observer(() => {
                 key={"referenceMaterialReactTable"}
                 columns={columns}
                 data={data ?? []}
-                initialState={{showColumnFilters: true}}
+                initialState={{showColumnFilters: true, density: 'compact'}}
                 enableRowActions
                 manualFiltering
                 manualPagination
