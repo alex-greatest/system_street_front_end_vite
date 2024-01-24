@@ -168,7 +168,8 @@ export const Operations = observer(() => {
                                     StoreService.addDataLocal(`/graph_effort/${operationId}`, {
                                         partName: partName,
                                         date: row?.original?.changeTime ?? new Date(),
-                                        modelDescription: reference?.modelDescription
+                                        modelDescription: reference?.modelDescription ?? "",
+                                        status: row?.original?.status?.statusName ?? ""
                                     });
                                     window.open(`/graph_effort?operationId=${operationId}`, '_blank',
                                         'noopener, noreferrer');

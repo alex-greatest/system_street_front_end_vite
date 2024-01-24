@@ -23,6 +23,7 @@ export const Graphs = observer(() => {
     const [partName, setPartName] = useState(tempPart);
     const date = StoreService.getData(`/graph_effort/${operationId}`)?.date ?? new Date();
     const modelDescription = StoreService.getData(`/graph_effort/${operationId}`)?.modelDescription ?? "";
+    const status = StoreService.getData(`/graph_effort/${operationId}`)?.status ?? "";
     const idGraphEffort = "graphEffortLineChart";
     const idGraphMoment = "graphMomentLineChart";
     const idTableMoment = "graphMomentTable";
@@ -34,7 +35,8 @@ export const Graphs = observer(() => {
             StoreService.addData(`/graph_effort/${operationId}`, {
                 partName: partNameFromLocalStorage,
                 date: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.date ?? new Date(),
-                modelDescription: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.modelDescription ?? ""
+                modelDescription: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.modelDescription ?? "",
+                status: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.status ?? ""
             });
             StoreService.removeDataLocal(`/graph_effort/${operationId}`);
         }
@@ -49,7 +51,8 @@ export const Graphs = observer(() => {
                     idHtmlGraphMoment={urlToGraphMoment}
                     date={date}
                     modeDescription={modelDescription}
-                    partName={partName} />,
+                    partName={partName}
+                    status={status}/>,
             `${partName}-${date}.pdf`,
             idGraphEffort,
             idGraphMoment,
@@ -61,7 +64,7 @@ export const Graphs = observer(() => {
             <ToastContainer />
             <Stack alignItems={"center"} justifyContent={"center"} width={"100%"} height={"100%"} padding={2}>
                 <Box id="back-to-top-anchor" sx={{display: "flex", width: "70%", alignItems: 'center'}}>
-                    <OutputDetailOperation  date={date} partName={partName} modelDescription={modelDescription} />
+                    <OutputDetailOperation date={date} partName={partName} modelDescription={modelDescription} />
                     <Button
                         color="primary"
                         startIcon={<FileDownloadIcon />}
