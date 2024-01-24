@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     },
     title: {
         marginTop: '20px',
-        marginBottom: "20px",
-        fontSize: "30px",
+        marginBottom: "15px",
+        fontSize: "27px",
         fontFamily: "Roboto",
         textAlign: "center"
     },
@@ -36,6 +36,7 @@ export const GraphPdf = observer((props: {
     partName: string,
     modeDescription: string,
     date: Date,
+    status: string
 }) => {
     const {
         idHtmlGraphEffort,
@@ -43,7 +44,8 @@ export const GraphPdf = observer((props: {
         idHtmlTableMoment,
         partName,
         modeDescription,
-        date} = props
+        date,
+        status} = props
 
     return (
         <Document>
@@ -56,6 +58,9 @@ export const GraphPdf = observer((props: {
                 </View>
                 <View style={styles.title}>
                     <Text>Дата: {date.toString()}</Text>
+                </View>
+                <View style={styles.title}>
+                    <Text>Результат: {status}</Text>
                 </View>
                 <View style={styles.section}>
                     <Text>График усилия</Text>

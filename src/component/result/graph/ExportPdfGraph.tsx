@@ -19,6 +19,7 @@ export const ExportPdfGraph = (props: {
     partName: string,
     modelDescription: string,
     date: Date,
+    status: string
 }) => {
     const [isRunDownLoad, setIsRunDownLoad] = useState(false);
     const [isLoadedFirstGraph, setIsLoadedFirstGraph] = useState(false);
@@ -29,7 +30,8 @@ export const ExportPdfGraph = (props: {
         setOperationId,
         partName,
         modelDescription,
-        date, } = props;
+        date,
+        status} = props;
     const {
         data: graphEffortData,
         isError: isErrorGraphEffortData,
@@ -83,7 +85,8 @@ export const ExportPdfGraph = (props: {
                         idHtmlGraphMoment={urlToTableMoment}
                         date={date}
                         modeDescription={modelDescription}
-                        partName={partName} />,
+                        partName={partName}
+                        status={status}/>,
                 `${partName}-${date.toString()}.pdf`,
                 idGraphEffort,
                 idGraphMoment,
@@ -98,7 +101,7 @@ export const ExportPdfGraph = (props: {
                     setIsLoadedSecondGraph(false);
             });
         }
-    }, [date, isErrorEffort, isErrorMoment, isLoadedFirstGraph, isLoadedSecondGraph, isRunDownLoad, modelDescription, partName, setOperationId]);
+    }, [date, isErrorEffort, isErrorMoment, isLoadedFirstGraph, isLoadedSecondGraph, isRunDownLoad, modelDescription, partName, setOperationId, status]);
 
     return (
         <div style={{ opacity: "0" }}>

@@ -53,8 +53,7 @@ export const Operations = observer(() => {
     const [disablePdfExportEffort, setdisablePdfExportEffort] = useState(false);
     const [disablePointsGraphDownload, setDisablePointsGraphDownload] = useState(false);
     const [operationIdPdf, setOperationIdPdf] = useState(-1);
-    const [actualOperation, setActualOperation] =
-        useState(operationDefault);
+    const [actualOperation, setActualOperation] = useState(operationDefault);
 
     const { data,
         totalElements,
@@ -245,6 +244,7 @@ export const Operations = observer(() => {
                     setOperationId={setOperationIdPdf}
                     date={actualOperation.changeTime ?? new Date()}
                     modelDescription={partName ? reference?.modelDescription ?? "" : ""}
+                    status={actualOperation.status.statusName ?? ""}
                     partName={partName}/>
             }
         </Box>
