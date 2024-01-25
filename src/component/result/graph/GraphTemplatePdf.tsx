@@ -1,18 +1,19 @@
 import {Document, Image, Page, Text, View, StyleSheet, Font} from "@react-pdf/renderer";
 import {observer} from "mobx-react-lite";
 
+
 Font.register({
-    family: "Roboto",
-    src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf"
+    family: "Arial",
+    src: "/ARIAL.TTF"
 });
 
 // Create style with font-family
 const styles = StyleSheet.create({
     page: {
-        fontFamily: "Roboto"
+        fontFamily: "Arial"
     },
     section: {
-        fontFamily: "Roboto",
+        fontFamily: "Arial",
         fontSize: "25px",
         margin: "30px 0",
         padding: "10px 15px"
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
         marginTop: '20px',
         marginBottom: "15px",
         fontSize: "27px",
-        fontFamily: "Roboto",
+        fontFamily: "Arial",
         textAlign: "center"
     },
     image: {
