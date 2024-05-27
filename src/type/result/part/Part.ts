@@ -7,4 +7,5 @@ export interface Part {
     changeTime: Date;
     reference: ReferenceForRecipe,
     status: StatusOperation;
+    pathShibao: string;
 }

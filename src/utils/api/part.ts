@@ -16,5 +16,6 @@ export const useGetParts = (params: PartRequest, isRequest: boolean) => {
         params,
         { retry: false, keepPreviousData: true,  }
     );
+    console.log(context.data?.content);
     return { ...context, data: context.data?.content, totalElements: context.data?.totalElements };
 };

@@ -4,7 +4,7 @@ import {
     downloadCsvFileParts,
     downloadCsvFileFilterOperation,
     downloadCsvPartsFile,
-    downloadCsvGraphPoint
+    downloadCsvGraphPoint, downloadPhotoShibao
 } from "../../utils/api/csv";
 import React from "react";
 import {HelpDownloadFile} from "./HelpDownloadFile";
@@ -33,6 +33,10 @@ export class HelpDownloadFileCsv extends HelpDownloadFile {
 
     public async downloadFileCsvParts(paramRequest: PartRequest, setDisable: setBoolean, idToast: string) {
         return this.requestDownloadFileCsv(setDisable, idToast, () => downloadCsvPartsFile(paramRequest));
+    }
+
+    public async downloadPhotoShibao(partId: number, setDisable: setBoolean, idToast: string) {
+        return this.requestDownloadFileCsv(setDisable, idToast, () => downloadPhotoShibao(partId));
     }
 
     public async downloadFileCsvGraphPoint(paramRequest: {operationId: number, referenceName: string},

@@ -22,6 +22,7 @@ import Button from "@mui/material/Button";
 import {observer} from "mobx-react-lite";
 import {ToastContainer} from "react-toastify";
 import {useTemplateDataGrid} from "../hook/useTemplateDataGrid";
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 
 const helpDownloadFileCsv = new HelpDownloadFileCsv();
 
@@ -41,6 +42,8 @@ export const Parts = observer(() => {
     const [disableDownLoadCsvOperation, setDisableDownLoadCsvOperation] =
         useState(false);
     const [disableDownLoadCsvPart, setdisableDownLoadCsvPart] =
+        useState(false);
+    const [disablePhotoShibao, setDisablePhotoShibao] =
         useState(false);
 
     const { data,
@@ -70,6 +73,12 @@ export const Parts = observer(() => {
         await helpDownloadFileCsv.downloadFileCsvParts(paramRequest,
             setdisableDownLoadCsvPart,
             "toastDownLoadCsvPartsList");
+    }
+
+    const onSubmitDownloadPhotoShibao = async (partId: number) => {
+        await helpDownloadFileCsv.downloadPhotoShibao(partId,
+            setDisablePhotoShibao,
+            "toastDownLoadPhotoShibao");
     }
 
     return (
@@ -126,6 +135,7 @@ export const Parts = observer(() => {
                     <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px', width: '100%' }}>
                         <Tooltip arrow placement="right" title="Просмотр результатов">
                             <IconButton
+                                disabled={disablePhotoShibao || disableDownLoadCsvOperation || disableDownLoadCsvPart}
                                 key={`ResultOperationsShow${row.original.id}`}
                                 color="secondary"
                                 onClick={() => {
@@ -141,7 +151,7 @@ export const Parts = observer(() => {
                         </Tooltip>
                         <Tooltip arrow placement="right" title="Экспорт результатов">
                             <IconButton
-                                disabled={disableDownLoadCsvOperation}
+                                disabled={disablePhotoShibao || disableDownLoadCsvOperation || disableDownLoadCsvPart}
                                 key={`ResultOperationsExportCsv${row.original.id}`}
                                 color="secondary"
                                 onClick={() => {
@@ -150,6 +160,17 @@ export const Parts = observer(() => {
                                 <FileDownloadIcon />
                             </IconButton>
                         </Tooltip>
+                        {row?.original?.pathShibao != null ? <Tooltip arrow placement="right" title="Экспорт SHIBAO">
+                            <IconButton
+                                disabled={disablePhotoShibao || disableDownLoadCsvOperation || disableDownLoadCsvPart}
+                                key={`PhotoShibaoExport${row.original.id}`}
+                                color="secondary"
+                                onClick={() => {
+                                    onSubmitDownloadPhotoShibao(row?.original?.id ?? 0).then()
+                                }}>
+                                <PhotoCameraIcon />
+                            </IconButton>
+                        </Tooltip> : null}
                     </Box>
                 )}
                 muiLinearProgressProps={() => ({

@@ -30,6 +30,12 @@ export const downloadCsvPartsFile = async (params: object) => {
     });
 }
 
+export const downloadPhotoShibao = async (partId: number) => {
+    return axiosApi.get(`${globalConfig.config.apiUrl}${apiRoutes.downloadPhotoShibao}`, {params: {partId: partId},
+        responseType: 'blob'
+    });
+}
+
 export const downloadCsvGraphPoint = async (params: object) => {
     return axiosApi.get(`${globalConfig.config.apiUrl}${apiRoutes.downloadCsvGraphPoint}`, {params: {...params},
         responseType: 'blob'

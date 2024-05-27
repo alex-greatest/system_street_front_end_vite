@@ -26,6 +26,7 @@ export const apiRoutes = {
   graphResultMoment: `/api/graph_results_moment`,
   referencePartName: `/api/references/part/name`,
   downloadCsvGraphPoint: `/api/download_graph_point`,
+  downloadPhotoShibao: `/api/download_photo_shibao`
 };
 
 export const pageRoutes = {
