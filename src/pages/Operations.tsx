@@ -46,7 +46,8 @@ export const Operations = observer(() => {
         startFilter,
         endFilter,
         setStartFilter,
-        setEndFilter} = useCreateOperationVar(columnFilters, pagination)
+        setEndFilter,
+        partTickets} = useCreateOperationVar(columnFilters, pagination)
     const statusOperationsListName = useCreateSelectStatusList();
     const [disableCsvOperationFilter, setDisableCsvOperationFilter] =
         useState(false);
@@ -113,7 +114,9 @@ export const Operations = observer(() => {
             <ToastContainer />
             <InputPartName partName={partName}
                            setPartName={setPartName}
-                           modelDescription={partName ? reference?.modelDescription ?? "" : ""} />
+                           modelDescription={partName ? reference?.modelDescription ?? "" : ""}
+                           partTickets={partTickets}
+            />
             <MaterialReactTable
                 key={"operationsMaterialReactTable"}
                 columns={useCreateColumnOperations(statusOperationsListName, startFilter, endFilter, setStartFilter, setEndFilter)}

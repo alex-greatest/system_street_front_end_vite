@@ -1,5 +1,6 @@
 import {StatusOperation} from "../StatusOperation";
 import {ReferenceForRecipe} from "../../reference/ReferenceForRecipe";
+import {PartTickets} from "./PartTickets.ts";
 
 export interface Part {
     id: number;
@@ -8,4 +9,5 @@ export interface Part {
     reference: ReferenceForRecipe,
     status: StatusOperation;
     pathShibao: string;
+    partTickets: PartTickets;
 }

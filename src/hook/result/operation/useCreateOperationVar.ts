@@ -17,6 +17,7 @@ export const useCreateOperationVar = (columnFilters: MRT_ColumnFiltersState, pag
     const partNameParams = useLocation().state?.partNameParams;
     const [partName, setPartName] = useState(partNameParams || partNameStorage || "");
     const memoryPartName = useMemo(() => partName, [partName]);
+    const memoryPartTickets = useMemo(() => partName, [partName]);
     const memorySetPartName = useMemo(() => setPartName, [setPartName]);
     const statusFiler = columnFilters?.find(item => item.id === 'status.statusName');
     const [startTimeFilter, setStartTimeFilter] = useState<dayjs.Dayjs|null>(startTime);
@@ -40,5 +41,6 @@ export const useCreateOperationVar = (columnFilters: MRT_ColumnFiltersState, pag
         endFilter: memoEndFilter,
         setStartFilter: memoSetStartFilter,
         setEndFilter: memoSetEndFilter,
+        partTickets: memoryPartTickets
     }
 };

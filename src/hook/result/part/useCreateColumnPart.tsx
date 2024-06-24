@@ -21,6 +21,11 @@ export const useCreateColumnPart = (
                 enableColumnFilter: false
             },
             {
+                accessorKey: 'partTickets.partTicket',
+                header: 'Код финальной этикетки',
+                enableColumnFilter: false
+            },
+            {
                 accessorKey: 'status.statusName',
                 ...dataForStatusMemo
             },

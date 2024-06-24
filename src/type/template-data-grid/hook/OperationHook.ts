@@ -10,4 +10,5 @@ export interface OperationHook {
     endFilter: dayjs.Dayjs|null,
     setStartFilter: React.Dispatch<React.SetStateAction<dayjs.Dayjs|null>>,
     setEndFilter: React.Dispatch<React.SetStateAction<dayjs.Dayjs|null>>,
+    partTickets?: string
 }

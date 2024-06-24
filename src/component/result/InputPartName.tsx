@@ -8,8 +8,8 @@ import {pageRoutes} from "../../utils/routes";
 
 type setPart = React.Dispatch<React.SetStateAction<string>>;
 
-export const InputPartName = observer((props: { partName: string, setPartName: setPart, modelDescription: string}) => {
-    const {partName, setPartName, modelDescription} = props;
+export const InputPartName = observer((props: { partName: string, setPartName: setPart, modelDescription: string, partTickets?: string}) => {
+    const {partName, setPartName, modelDescription, partTickets} = props;
     const [value, setValue] = useState(partName);
     const navigate = useNavigate();
 
@@ -25,6 +25,9 @@ export const InputPartName = observer((props: { partName: string, setPartName: s
                         Выбранный механизм: {partName}
                     </Typography>
                 }
+                <Typography sx={{margin: 'auto 0 1em 1em'}} variant="h5" component="div">
+                    Код финальной этикетки: {partTickets ?? "Код не привязан"}
+                </Typography>
                 {modelDescription &&
                     <Typography sx={{margin: 'auto 0 1em 1em'}} variant="h5" component="div">
                         Модель: {modelDescription}
