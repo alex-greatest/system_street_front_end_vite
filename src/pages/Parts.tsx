@@ -143,6 +143,7 @@ export const Parts = observer(() => {
                                         '/operations',
                                         { state: {
                                                     partNameParams: row?.original?.partName ?? "",
+                                                    partTicketsParams: row?.original?.partTickets?.partTicket ?? "код не привязан",
                                                     modelDescriptionParams: row?.original?.reference?.modelDescription ?? ""
                                                 }})
                                 }}>

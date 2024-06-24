@@ -37,7 +37,8 @@ export const GraphPdf = observer((props: {
     partName: string,
     modeDescription: string,
     date: Date,
-    status: string
+    status: string,
+    partTickets?: string
 }) => {
     const {
         idHtmlGraphEffort,
@@ -46,13 +47,17 @@ export const GraphPdf = observer((props: {
         partName,
         modeDescription,
         date,
-        status} = props
+        status,
+        partTickets} = props
 
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.title}>
                     <Text>Код механизма: {partName}</Text>
+                </View>
+                <View style={styles.title}>
+                    <Text>Код финальной этикетки: {partTickets}</Text>
                 </View>
                 <View style={styles.title}>
                     <Text>Модель: {modeDescription}</Text>

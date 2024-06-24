@@ -25,9 +25,11 @@ export const InputPartName = observer((props: { partName: string, setPartName: s
                         Выбранный механизм: {partName}
                     </Typography>
                 }
+                {partName &&
                 <Typography sx={{margin: 'auto 0 1em 1em'}} variant="h5" component="div">
-                    Код финальной этикетки: {partTickets ?? "Код не привязан"}
+                    Код финальной этикетки: {partTickets || "Код не привязан"}
                 </Typography>
+                }
                 {modelDescription &&
                     <Typography sx={{margin: 'auto 0 1em 1em'}} variant="h5" component="div">
                         Модель: {modelDescription}

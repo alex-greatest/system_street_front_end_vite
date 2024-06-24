@@ -16,6 +16,7 @@ export const OperationsResults = observer(() => {
     const [searchParams,] = useSearchParams();
     const operationId = searchParams.get("operationId") ?? -1;
     const partName = StoreService.getData(`/operation_results/${operationId}`)?.partName ?? "";
+    const partTickets = StoreService.getData(`/operation_results/${operationId}`)?.partTickets ?? "";
     const date = StoreService.getData(`/operation_results/${operationId}`)?.date ?? new Date();
     const modelDescription = StoreService.getData(`/operation_results/${operationId}`)?.modelDescription ?? "";
 
@@ -24,6 +25,7 @@ export const OperationsResults = observer(() => {
         if (partNameFromLocalStorage && partNameFromLocalStorage.length > 0) {
             StoreService.addData(`/operation_results/${operationId}`, {
                 partName: partNameFromLocalStorage,
+                partTickets: StoreService.getDataLocal(`/operation_results/${operationId}`)?.partTickets ?? "",
                 date: StoreService.getDataLocal(`/operation_results/${operationId}`)?.date ?? new Date(),
                 modelDescription: StoreService.getDataLocal(`/operation_results/${operationId}`)?.modelDescription ?? ""
             });
@@ -41,7 +43,7 @@ export const OperationsResults = observer(() => {
         <>
             <ToastContainer />
             <Stack sx={{width: '100%', alignItems: 'center'}}>
-                <OutputDetailOperation id="back-to-top-anchor" date={date} partName={partName} modelDescription={modelDescription}/>
+                <OutputDetailOperation id="back-to-top-anchor" date={date} partName={partName} modelDescription={modelDescription} partTickets={partTickets}/>
                 <MaterialReactTable
                     key={"operationResultsMaterialReactTable"}
                     muiTablePaperProps={{

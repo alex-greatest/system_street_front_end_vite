@@ -74,9 +74,10 @@ export const Operations = observer(() => {
                 startFilter: startFilter,
                 endFilter: endFilter,
                 partNameStorage: partName,
+                partTicketsStorage: partTickets
             });
         }
-    }, [columnFilters, sorting, pagination, partName, statusOperationsListName, startFilter, endFilter]);
+    }, [columnFilters, sorting, pagination, partName, statusOperationsListName, startFilter, endFilter, partTickets]);
 
     useEffect(() => {
         if (operationIdPdf !== -1) {
@@ -152,6 +153,7 @@ export const Operations = observer(() => {
                                     const operationId = row?.original?.id;
                                     StoreService.addDataLocal(`/operation_results/${operationId}`, {
                                         partName: partName,
+                                        partTickets: partTickets,
                                         date: row?.original?.changeTime ?? new Date(),
                                         modelDescription: reference?.modelDescription
                                     });
@@ -170,6 +172,7 @@ export const Operations = observer(() => {
                                     const operationId = row?.original?.id;
                                     StoreService.addDataLocal(`/graph_effort/${operationId}`, {
                                         partName: partName,
+                                        partTickets: partTickets,
                                         date: row?.original?.changeTime ?? new Date(),
                                         modelDescription: reference?.modelDescription ?? "",
                                         status: row?.original?.status?.statusName ?? ""
@@ -249,7 +252,8 @@ export const Operations = observer(() => {
                     date={actualOperation.changeTime ?? new Date()}
                     modelDescription={partName ? reference?.modelDescription ?? "" : ""}
                     status={actualOperation.status.statusName ?? ""}
-                    partName={partName}/>
+                    partName={partName}
+                    partTickets={partTickets}/>
             }
         </Box>
     );

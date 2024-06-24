@@ -20,6 +20,7 @@ export const Graphs = observer(() => {
     const [searchParams,] = useSearchParams();
     const operationId = searchParams.get("operationId") ?? -1;
     const tempPart = StoreService.getData(`/graph_effort/${operationId}`)?.partName ?? "";
+    const partTickets = StoreService.getData(`/graph_effort/${operationId}`)?.partTickets ?? "";
     const [partName, setPartName] = useState(tempPart);
     const date = StoreService.getData(`/graph_effort/${operationId}`)?.date ?? new Date();
     const modelDescription = StoreService.getData(`/graph_effort/${operationId}`)?.modelDescription ?? "";
@@ -34,6 +35,7 @@ export const Graphs = observer(() => {
             setPartName(partNameFromLocalStorage);
             StoreService.addData(`/graph_effort/${operationId}`, {
                 partName: partNameFromLocalStorage,
+                partTickets: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.partTickets ?? "",
                 date: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.date ?? new Date(),
                 modelDescription: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.modelDescription ?? "",
                 status: StoreService.getDataLocal(`/graph_effort/${operationId}`)?.status ?? ""
@@ -52,7 +54,8 @@ export const Graphs = observer(() => {
                     date={date}
                     modeDescription={modelDescription}
                     partName={partName}
-                    status={status}/>,
+                    status={status}
+                    partTickets={partTickets}/>,
             `${partName}-${date}.pdf`,
             idGraphEffort,
             idGraphMoment,
@@ -64,7 +67,7 @@ export const Graphs = observer(() => {
             <ToastContainer />
             <Stack alignItems={"center"} justifyContent={"center"} width={"100%"} height={"100%"} padding={2}>
                 <Box id="back-to-top-anchor" sx={{display: "flex", width: "70%", alignItems: 'center'}}>
-                    <OutputDetailOperation date={date} partName={partName} modelDescription={modelDescription} />
+                    <OutputDetailOperation date={date} partName={partName} modelDescription={modelDescription} partTickets={partTickets}/>
                     <Button
                         color="primary"
                         startIcon={<FileDownloadIcon />}
